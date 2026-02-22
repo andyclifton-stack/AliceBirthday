@@ -125,8 +125,9 @@ audioFiles.forEach((track, index) => {
   shareTrackBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     const APP_URL = "https://fingergame.co.uk/AliceBirthday/";
+    const trackShareUrl = `${APP_URL}?song=${encodeURIComponent(track.title)}`;
     const text = `Hey! Alice's 10th Birthday app is so cool! Listen to this track: "${track.title}" ${track.icon}. Check it out here:`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)} ${encodeURIComponent(APP_URL)}`, '_blank');
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)} ${encodeURIComponent(trackShareUrl)}`, '_blank');
   });
 
   // Firebase Realtime Score & Play Sync
@@ -335,3 +336,20 @@ if (shareAppBtn) {
     window.open(`https://wa.me/?text=${encodeURIComponent(text)} ${encodeURIComponent(APP_URL)}`, '_blank');
   });
 }
+
+// Deep Linking: Auto-play track on load if ?song= is present
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const songTitle = params.get('song');
+  if (songTitle) {
+    const track = audioFiles.find(t => t.title === songTitle);
+    if (track && track.cardElement) {
+      console.log(`Deep link detected: Playing "${songTitle}"`);
+      // Use a slight delay to ensure browser readiness
+      setTimeout(() => {
+        const cardContent = track.cardElement.querySelector('.card-content');
+        if (cardContent) cardContent.click();
+      }, 1000);
+    }
+  }
+});
