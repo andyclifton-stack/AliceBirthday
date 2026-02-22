@@ -348,39 +348,53 @@ audioFiles.forEach((track, index) => {
 
   // --- REACTIONS ---
   const reactionBtns = card.querySelectorAll('.reaction-btn');
-  const reactionsRef = ref(db, `alices-birthday-reactions/${trackKey}`);
+  const dataRef = ref(db, `alices-birthday-votes/${trackKey}`);
 
-  // Listen for realtime reaction counts
-  onValue(reactionsRef, (snapshot) => {
-    const data = snapshot.val() || {};
+  // Local fallback counters
+  const localReactionCounts = {};
+  REACTIONS.forEach(r => { localReactionCounts[r.key] = 0; });
+  let usingLocalFallback = false;
+
+  function updateReactionUI(data) {
     let totalScore = 0;
-
     REACTIONS.forEach(r => {
       const count = data[r.key] || 0;
       totalScore += count;
       const countEl = card.querySelector(`[data-count-key="${r.key}"]`);
       if (countEl) countEl.textContent = count > 0 ? count : '';
     });
-
     trackScores[trackKey] = totalScore;
     updateMostLoved();
+  }
+
+  // Listen for realtime data (votes + reactions + plays all under same node)
+  onValue(dataRef, (snapshot) => {
+    const data = snapshot.val() || {};
+    if (!usingLocalFallback) {
+      updateReactionUI(data);
+    }
+    playCountDisplay.textContent = `This song has been played ${data.plays || 0} times`;
   });
 
   reactionBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const reactionKey = btn.dataset.reaction;
-      const reactionRef = ref(db, `alices-birthday-reactions/${trackKey}`);
 
-      runTransaction(reactionRef, (currentData) => {
+      runTransaction(dataRef, (currentData) => {
         if (currentData === null) {
-          return { [reactionKey]: 1 };
+          return { [reactionKey]: 1, plays: 0 };
         }
         return {
           ...currentData,
           [reactionKey]: (currentData[reactionKey] || 0) + 1
         };
-      }).catch(err => console.warn('Reaction sync failed', err));
+      }).catch(err => {
+        console.warn('Reaction sync failed, using local fallback:', err);
+        usingLocalFallback = true;
+        localReactionCounts[reactionKey]++;
+        updateReactionUI(localReactionCounts);
+      });
 
       playReactionSound();
       btn.classList.add('just-reacted');
@@ -401,13 +415,6 @@ audioFiles.forEach((track, index) => {
         scalar: 0.7
       });
     });
-  });
-
-  // --- PLAY COUNT (from Firebase) ---
-  const dataRef = ref(db, `alices-birthday-votes/${trackKey}`);
-  onValue(dataRef, (snapshot) => {
-    const data = snapshot.val();
-    playCountDisplay.textContent = `This song has been played ${data ? (data.plays || 0) : 0} times`;
   });
 
   // --- TRACK SHARING ---
