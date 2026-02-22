@@ -5,6 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alice's Magical Birthday!</title>
+
+  <!-- Favicon: Crown emoji as SVG -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
+
+  <!-- OG / Social Preview -->
+  <meta property="og:title" content="Alice's 10th Birthday! 👑✨" />
+  <meta property="og:description"
+    content="Alice is turning 10! 🎂 Check out this magical Birthday App — play music, vote for her favourite tracks, and celebrate! Disneyland, here we come! 🏰" />
+  <meta property="og:image" content="https://fingergame.co.uk/AliceBirthday/og-image.png" />
+  <meta property="og:url" content="https://fingergame.co.uk/AliceBirthday/" />
+  <meta property="og:type" content="website" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
@@ -12,10 +25,29 @@
 </head>
 
 <body>
+  <!-- Birthday Greeting Modal (shown once on first visit) -->
+  <div id="birthday-modal" class="birthday-modal hidden">
+    <div class="birthday-modal-content">
+      <div class="modal-sparkles"></div>
+      <div class="modal-crown">👑</div>
+      <h2 class="modal-title">Happy 10th Birthday</h2>
+      <h1 class="modal-name">Alice!</h1>
+      <p class="modal-subtitle">🏰 Next Stop: Disneyland! 🏰</p>
+      <button id="modal-dismiss-btn" class="modal-dismiss-btn">✨ Let's Celebrate! ✨</button>
+    </div>
+  </div>
+
   <div id="app">
     <header class="hero">
-      <h1 class="title">Alice's 10th Birthday! 👑✨</h1>
-      <p class="subtitle">Next Stop: Disneyland!</p>
+      <div class="hero-decoration">
+        <span class="hero-star star-1">✦</span>
+        <span class="hero-star star-2">✧</span>
+        <span class="hero-star star-3">✦</span>
+        <span class="hero-star star-4">⋆</span>
+        <span class="hero-star star-5">✧</span>
+      </div>
+      <h1 class="title"><span id="crown-easter-egg" class="crown-tap">👑</span> Alice's 10th Birthday! ✨</h1>
+      <p class="subtitle">🏰 Next Stop: Disneyland! 🏰</p>
 
       <button id="magic-picker-btn" class="magic-btn">
         ✨ PICK A MAGIC TRACK! ✨
@@ -27,6 +59,7 @@
     </main>
 
     <div id="now-playing-container" class="now-playing hidden">
+      <canvas id="visualizer-canvas" class="visualizer-canvas" width="60" height="30"></canvas>
       <span class="now-playing-text">Now Playing: </span>
       <span id="now-playing-title" class="now-playing-title"></span>
     </div>
@@ -37,9 +70,6 @@
       </button>
     </footer>
   </div>
-
-  <!-- Audio element for spinning sound effect -->
-  <!-- Assuming we will use a short ticking or spinning sound. We can synthesize one or use a placeholder if an asset isn't available, but let's just use Web Audio API synthesis in JS so we don't need a missing file -->
 
   <script type="module" src="/src/main.js"></script>
 </body>

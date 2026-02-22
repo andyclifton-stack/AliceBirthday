@@ -1,12 +1,8 @@
 :root {
   --primary-color: #ff007f;
-  /* Hot Pink */
   --secondary-color: #7a00cc;
-  /* Deep Royal Purple */
   --accent-color: #ffd700;
-  /* Magical Gold */
   --bg-color: #0f0c29;
-  /* Very Dark Midnight */
   --text-main: #ffffff;
   --card-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.2);
@@ -38,11 +34,231 @@ body {
   align-items: center;
 }
 
-/* Hero Section */
+/* ==================== */
+/*   BIRTHDAY MODAL     */
+/* ==================== */
+.birthday-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 12, 41, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: modalFadeIn 0.8s ease-out forwards;
+}
+
+.birthday-modal.hidden {
+  display: none;
+}
+
+.birthday-modal.dismissing {
+  animation: modalFadeOut 0.6s ease-in forwards;
+}
+
+.birthday-modal-content {
+  text-align: center;
+  position: relative;
+  animation: modalBounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  padding: 3rem;
+}
+
+.modal-crown {
+  font-size: 5rem;
+  animation: crownBob 2s ease-in-out infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+}
+
+.modal-title {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--accent-color);
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  margin-top: 1rem;
+}
+
+.modal-name {
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color), #ff69b4, var(--primary-color));
+  background-size: 300% 300%;
+  animation: gradientShift 3s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.1;
+  margin: 0.5rem 0;
+  filter: drop-shadow(0 4px 12px rgba(255, 0, 127, 0.4));
+}
+
+.modal-subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  margin-top: 0.5rem;
+  letter-spacing: 2px;
+}
+
+.modal-dismiss-btn {
+  margin-top: 2.5rem;
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  color: #fff;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 5px 25px rgba(255, 0, 127, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-dismiss-btn:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 10px 35px rgba(255, 215, 0, 0.6);
+}
+
+.modal-dismiss-btn:active {
+  transform: scale(0.95);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modalBounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3) translateY(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes crownBob {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ==================== */
+/*    HERO SECTION      */
+/* ==================== */
 .hero {
   text-align: center;
   margin-bottom: 3rem;
   animation: floatDown 1s ease-out forwards;
+  position: relative;
+}
+
+.hero-decoration {
+  position: absolute;
+  inset: -30px;
+  pointer-events: none;
+}
+
+.hero-star {
+  position: absolute;
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  opacity: 0.7;
+  animation: starTwinkle 2s ease-in-out infinite;
+  text-shadow: 0 0 10px var(--accent-color);
+}
+
+.star-1 {
+  top: 0;
+  left: 10%;
+  animation-delay: 0s;
+  font-size: 1.2rem;
+}
+
+.star-2 {
+  top: 15%;
+  right: 5%;
+  animation-delay: 0.4s;
+  font-size: 1.8rem;
+}
+
+.star-3 {
+  bottom: 10%;
+  left: 5%;
+  animation-delay: 0.8s;
+  font-size: 1rem;
+}
+
+.star-4 {
+  top: 5%;
+  left: 50%;
+  animation-delay: 1.2s;
+  font-size: 2rem;
+}
+
+.star-5 {
+  bottom: 20%;
+  right: 10%;
+  animation-delay: 1.6s;
+  font-size: 1.4rem;
+}
+
+@keyframes starTwinkle {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.4) rotate(180deg);
+  }
 }
 
 .title {
@@ -56,6 +272,96 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.crown-tap {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+  /* Reset the gradient clip for the emoji */
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: initial;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.crown-tap:hover {
+  transform: scale(1.2);
+}
+
+.crown-tap.shaking {
+  animation: crownShake 0.4s ease;
+}
+
+@keyframes crownShake {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(-15deg);
+  }
+
+  40% {
+    transform: rotate(15deg);
+  }
+
+  60% {
+    transform: rotate(-10deg);
+  }
+
+  80% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Easter Egg Reveal */
+.easter-egg-reveal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5000;
+  text-align: center;
+  animation: easterEggPop 2.5s ease-out forwards;
+  pointer-events: none;
+}
+
+.easter-egg-reveal h2 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  color: var(--accent-color);
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
+  white-space: nowrap;
+}
+
+@keyframes easterEggPop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  30% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5) translateY(-30px);
+  }
+}
+
 .subtitle {
   font-size: clamp(1.2rem, 3vw, 2rem);
   color: var(--accent-color);
@@ -65,17 +371,20 @@ body {
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
-/* Audio Grid */
+/* ==================== */
+/*   AUDIO GRID         */
+/* ==================== */
 .audio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   width: 100%;
   padding-bottom: 6rem;
-  /* Space for the banner */
 }
 
-/* Cards */
+/* ==================== */
+/*     AUDIO CARDS      */
+/* ==================== */
 .audio-card {
   background: var(--card-bg);
   border: 1px solid var(--glass-border);
@@ -92,6 +401,7 @@ body {
   animation: floatUp 0.6s ease-out backwards;
 }
 
+/* Shine sweep effect */
 .audio-card::before {
   content: '';
   position: absolute;
@@ -106,6 +416,21 @@ body {
 
 .audio-card:hover::before {
   left: 150%;
+}
+
+/* Progress bar at bottom of card */
+.audio-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(var(--progress, 0) * 100%);
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--accent-color);
+  transition: width 0.3s linear;
+  z-index: 5;
 }
 
 .audio-card:hover {
@@ -142,7 +467,44 @@ body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Now Playing Banner */
+/* Most Loved Badge */
+.most-loved-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, var(--accent-color), #ffaa00);
+  color: #1a1a2e;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+  display: none;
+  align-items: center;
+  gap: 4px;
+  z-index: 10;
+  animation: badgePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.audio-card.most-loved .most-loved-badge {
+  display: flex;
+}
+
+@keyframes badgePop {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ==================== */
+/*  NOW PLAYING BANNER  */
+/* ==================== */
 .now-playing {
   position: fixed;
   bottom: 30px;
@@ -182,18 +544,52 @@ body {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* Decorative Sparkle Effects */
+/* Audio Visualizer */
+.visualizer-canvas {
+  width: 60px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+/* ==================== */
+/*   DRIFTING SPARKLES  */
+/* ==================== */
 .sparkle {
-  position: absolute;
+  position: fixed;
   width: 4px;
   height: 4px;
   background-color: var(--accent-color);
   border-radius: 50%;
   box-shadow: 0 0 10px 2px var(--accent-color);
-  animation: twinkle 2s infinite ease-in-out;
+  animation: sparkleDrift linear infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
 }
 
-/* Animations */
+@keyframes sparkleDrift {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) translateX(0);
+  }
+
+  10% {
+    opacity: 0.8;
+  }
+
+  90% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-20vh) translateX(var(--drift-x, 30px));
+  }
+}
+
+/* ==================== */
+/*     ANIMATIONS       */
+/* ==================== */
 @keyframes floatDown {
   from {
     opacity: 0;
@@ -240,23 +636,9 @@ body {
   }
 }
 
-@keyframes twinkle {
-
-  0%,
-  100% {
-    opacity: 0.2;
-    transform: scale(0.8);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.5);
-  }
-}
-
-/* --- V2 Features --- */
-
-/* Magic Picker Button */
+/* ==================== */
+/*   MAGIC PICKER BTN   */
+/* ==================== */
 .magic-btn {
   background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
   color: #fff;
@@ -306,7 +688,7 @@ body {
   transform: scale(0.95);
 }
 
-/* Roulette Highlight Animation */
+/* Roulette Highlight */
 .audio-card.highlighted {
   border-color: #fff;
   box-shadow: 0 0 30px #fff, inset 0 0 20px rgba(255, 255, 255, 0.5);
@@ -314,58 +696,76 @@ body {
   z-index: 10;
 }
 
-/* Voting UI */
-.voting-container {
+/* ==================== */
+/*   REACTION EMOJIS    */
+/* ==================== */
+.reactions-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
   margin-top: 1.5rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
 }
 
-.vote-btn {
-  background: rgba(255, 255, 255, 0.15);
-  border: none;
+.reaction-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  border-radius: 20px;
+  padding: 6px 12px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
+  gap: 5px;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
 }
 
-.vote-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.15);
+.reaction-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1) translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
-.vote-btn:active {
+.reaction-btn:active {
   transform: scale(0.9);
 }
 
-.vote-btn.upvote:hover {
-  background: var(--primary-color);
-  box-shadow: 0 0 15px var(--primary-color);
-}
-
-.vote-btn.downvote:hover {
-  background: var(--secondary-color);
-  box-shadow: 0 0 15px var(--secondary-color);
-}
-
-.vote-score {
-  font-size: 1.5rem;
-  font-weight: 900;
+.reaction-btn .reaction-count {
+  font-size: 0.8rem;
+  font-weight: 700;
   color: var(--accent-color);
-  min-width: 40px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  min-width: 12px;
+  text-align: center;
+}
+
+.reaction-btn.reacted {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+}
+
+/* Pop animation for reaction click */
+.reaction-btn.just-reacted {
+  animation: reactionPop 0.4s ease;
+}
+
+@keyframes reactionPop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .play-count {
@@ -376,7 +776,9 @@ body {
   font-style: italic;
 }
 
-/* Disco Mode Background */
+/* ==================== */
+/*  DISCO MODE BG       */
+/* ==================== */
 html.disco-mode {
   animation: discoPulse 2s infinite alternate;
 }
@@ -399,7 +801,9 @@ html.disco-mode {
   }
 }
 
-/* Footer & Social */
+/* ==================== */
+/*  FOOTER & SOCIAL     */
+/* ==================== */
 .app-footer {
   width: 100%;
   display: flex;
@@ -454,6 +858,9 @@ html.disco-mode {
   gap: 10px;
 }
 
+/* ==================== */
+/*   RESPONSIVE         */
+/* ==================== */
 @media (max-width: 600px) {
   #app {
     padding: 1rem;
@@ -478,5 +885,18 @@ html.disco-mode {
   .now-playing-title {
     text-align: center;
     font-size: 1rem;
+  }
+
+  .hero-decoration {
+    display: none;
+  }
+
+  .reactions-container {
+    gap: 5px;
+  }
+
+  .reaction-btn {
+    padding: 5px 8px;
+    font-size: 0.9rem;
   }
 }
