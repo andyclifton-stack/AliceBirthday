@@ -124,10 +124,10 @@ audioFiles.forEach((track, index) => {
   // WhatsApp track sharing
   shareTrackBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    const APP_URL = "https://fingergame.co.uk/AliceBirthday/";
+    const APP_URL = "https://fingergame.co.uk/AliceBirthday/"; // Ensure base URL
     const trackShareUrl = `${APP_URL}?song=${encodeURIComponent(track.title)}`;
-    const text = `Hey! Alice's 10th Birthday app is so cool! Listen to this track: "${track.title}" ${track.icon}. Check it out here:`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)} ${encodeURIComponent(trackShareUrl)}`, '_blank');
+    const text = `Hey! Alice's 10th Birthday app is so cool! Listen to this track: "${track.title}" ${track.icon}. Check it out here: ${trackShareUrl}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   });
 
   // Firebase Realtime Score & Play Sync
