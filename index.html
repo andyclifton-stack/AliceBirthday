@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alice's Magical Birthday!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body>
+  <div id="app">
+    <header class="hero">
+      <h1 class="title">Alice's 10th Birthday! 👑✨</h1>
+      <p class="subtitle">Next Stop: Disneyland!</p>
+
+      <button id="magic-picker-btn" class="magic-btn">
+        ✨ PICK A MAGIC TRACK! ✨
+      </button>
+    </header>
+
+    <main class="audio-grid" id="audio-grid">
+      <!-- Audio cards will be injected here by JS -->
+    </main>
+
+    <div id="now-playing-container" class="now-playing hidden">
+      <span class="now-playing-text">Now Playing: </span>
+      <span id="now-playing-title" class="now-playing-title"></span>
+    </div>
+
+    <footer class="app-footer">
+      <button id="share-app-btn" class="share-wa-btn">
+        <span class="wa-icon">💚</span> Share Alice's App on WhatsApp
+      </button>
+    </footer>
+  </div>
+
+  <!-- Audio element for spinning sound effect -->
+  <!-- Assuming we will use a short ticking or spinning sound. We can synthesize one or use a placeholder if an asset isn't available, but let's just use Web Audio API synthesis in JS so we don't need a missing file -->
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
